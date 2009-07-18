@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # 'WebSearch' is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +17,7 @@
 # Stefano Viola < stefanoviola85 [at] gmail [dot] com
 #
 #
-# !/bin/bash
-#
+
 function credit {
 echo -e "\n\n"
 echo -e "\t \t WebSearch -----> Version only gui"
@@ -80,6 +80,10 @@ function gui {
 # Command line arguments check
 if [ "$1" = "--info" ]; then
     credit
-else
-   gui
+else {
+	credit; 
+	echo "Starting...";
+	gui;
+   
+}
 fi
