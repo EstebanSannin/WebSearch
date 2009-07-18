@@ -1,0 +1,85 @@
+#
+# 'WebSearch' is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# 'WebSearch' is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with 'TV-ita'. If not, see <http://www.gnu.org/licenses/>.
+#
+# Author:
+# Stefano Viola < stefanoviola85 [at] gmail [dot] com
+#
+#
+# !/bin/bash
+#
+function credit {
+echo -e "\n\n"
+echo -e "\t \t WebSearch -----> Version only gui"
+echo -e "\n"
+echo -e "Is a simple script that allows"
+echo -e "immediate searches on internet!"
+echo -e "Author:   Sefano Viola"
+echo -e "Alias:    Esteban Sannin"
+echo -e "Contact:  stefanoviola85 [at] gmail [dot] com"
+echo -e "\n"
+echo -e "\n\n"
+}
+
+function youTubeSearch {
+    TESTO=`zenity --title "Youtube Search" --entry --text="Insert word" --width=430`
+    if [ "$TESTO" = "" ]; then
+	exit 1
+    else
+	firefox "http://www.youtube.com/results?search_type=search_videos&search_sort=relevance&search_query=$TESTO&search=Search"
+    fi
+}
+
+function googleSearch {
+    TESTO=`zenity --title "Google Search" --entry --text="Insert word" --width=430`
+    if [ "$TESTO" = "" ]; then
+	exit 1
+    else
+	firefox "http://www.google.com/search?hl=en&q=$TESTO&aq=f&oq=&aqi="
+    fi
+}
+
+function ebaySearch {
+    TESTO=`zenity --title "Ebay Search" --entry --text="Insert word" --width=430`
+    if [ "$TESTO" = "" ]; then
+	exit 1
+    else
+	firefox "http://shop.ebay.it/?_from=R40&_trksid=p3907.m38.l1313&_nkw=$TESTO&_nd1=See-All-Categories"
+    fi
+}
+
+function gui {
+    SCELTA=`zenity --title "WebSearch" \
+	--text "Selection Site:" \
+	--list --radiolist \
+	--column="Selection" \
+	--column="Site" \
+	--column "Description" \
+	true "Google" "MotorSearch" \
+	false "Youtube" "Video Search" \
+	false "Ebay" "Shopping Search" \
+	--width=300 --height=230 `
+    case $SCELTA in
+	"Google" ) googleSearch;;
+	"Youtube" ) youTubeSearch;;
+        "Ebay" ) ebaySearch;;
+	* ) exit 1;;
+    esac
+}
+
+# Command line arguments check
+if [ "$1" = "--info" ]; then
+    credit
+else
+   gui
+fi
